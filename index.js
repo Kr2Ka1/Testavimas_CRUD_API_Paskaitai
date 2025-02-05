@@ -88,13 +88,35 @@ app.post('/users', async(req, res)=> {
 });
 
 
-
 // PUT/PATCH  /users/update/:id - route redaguos produktą
-
+app.put('/users/:id', async(req, res)=> {
+    try{
+        const id = req.params.id;
+        const {username, password} = req.body;
+        const results = await pool.query(`update users set username = '${username}', "password" = '${password}' where id = ${id} returning*`);
+        res.status(200).json(results.rows[0]);
+    }
+    catch(err){
+        res.status(400).json({error: 'error'});
+    }
+    
+});
 
 
 // DELETE     /users/delete/:id - ištrins produktą
 
+app.delete('/users/:id', async(req, res)=> {
+    try{
+        const id = req.params.id;
+      
+        const results = await pool.query(`delete from users where id = ${id}`);
+        res.status(200).json({message: 'Elementas sėkmingai ištrintas'});
+    }
+    catch(err){
+        res.status(400).json({error: 'error'});
+    }
+    
+});
 
 
 
