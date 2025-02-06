@@ -118,6 +118,77 @@ app.delete('/users/:id', async(req, res)=> {
     
 });
 
+// -------------------------------------------------------------------------
+
+
+
+app.get('/productsnd', async(req, res)=> {
+    
+    try{
+        const results = await pool.query('select * from productsnd');
+
+        res.status(200).json(results.rows);
+    }
+    catch(err){
+        res.status(400).json({error: 'error'});
+    }
+    
+});
+
+
+app.get('/productsnd/:id', async(req, res)=> {
+    try{
+        const id = req.params.id;
+        const results = await pool.query(`select * from productsnd where id=$1`,[id]);
+        res.status(200).json(results.rows);
+    }
+    catch(err){
+        res.status(400).json({error: 'error'});
+    }
+    
+});
+
+app.post('/productsnd', async(req, res)=> {
+    try{
+        const {id, username, password} = req.body;
+        const results = await pool.query(`insert into productsnd (id,title,deskription,price) values (${id}, '${title}', '${deskription}', ${price}) returning*`);
+        res.status(201).json(results.rows[0]);
+    }
+    catch(err){
+        res.status(400).json({error: 'error'});
+    }
+    
+});
+
+app.put('/productsnd/:id', async(req, res)=> {
+    try{
+        const id = req.params.id;
+        const {title,deskription,price} = req.body;
+        const results = await pool.query(`update into productsnd (id,title,deskription,price) values (${id}, '${title}', '${deskription}', ${price}) returning*`);
+        res.status(200).json(results.rows[0]);
+    }
+    catch(err){
+        res.status(400).json({error: 'error'});
+    }
+    
+});
+
+app.delete('/productsnd/:id', async(req, res)=> {
+    try{
+        const id = req.params.id;
+      
+        const results = await pool.query(`delete from productsnd where id = ${id}`);
+        res.status(200).json({message: 'Elementas sėkmingai ištrintas'});
+    }
+    catch(err){
+        res.status(400).json({error: 'error'});
+    }
+    
+});
+
+
+
+
 
 
 
