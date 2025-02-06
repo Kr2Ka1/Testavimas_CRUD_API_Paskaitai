@@ -150,8 +150,8 @@ app.get('/productsnd/:id', async(req, res)=> {
 
 app.post('/productsnd', async(req, res)=> {
     try{
-        const {id, username, password} = req.body;
-        const results = await pool.query(`insert into productsnd (id,title,deskription,price) values (${id}, '${title}', '${deskription}', ${price}) returning*`);
+        const {title,description,price} = req.body;
+        const results = await pool.query(`insert into productsnd (title,description,price) values ('${title}', '${description}', ${price}) returning*`);
         res.status(201).json(results.rows[0]);
     }
     catch(err){
@@ -163,8 +163,8 @@ app.post('/productsnd', async(req, res)=> {
 app.put('/productsnd/:id', async(req, res)=> {
     try{
         const id = req.params.id;
-        const {title,deskription,price} = req.body;
-        const results = await pool.query(`update into productsnd (id,title,deskription,price) values (${id}, '${title}', '${deskription}', ${price}) returning*`);
+        const {title,description,price} = req.body;
+        const results = await pool.query(`update productsnd set title = '${title}', "description" = '${description}', "price" =  ${price} where id = ${id} returning*`);
         res.status(200).json(results.rows[0]);
     }
     catch(err){
