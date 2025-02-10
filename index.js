@@ -140,7 +140,7 @@ app.get('/productsnd/:id', async(req, res)=> {
     try{
         const id = req.params.id;
         const results = await pool.query(`select * from productsnd where id=$1`,[id]);
-        res.status(200).json(results.rows);
+        res.status(200).json(results.rows[0]);
     }
     catch(err){
         res.status(400).json({error: 'error'});
