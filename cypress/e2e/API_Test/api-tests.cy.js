@@ -45,7 +45,7 @@ describe('CRUD_API', () => {
             cy.log('pasiruo6imas testui');
         });
 
-
+//kometuoju kad neprikurtų daigybės naujų post:
         // it('/productsnd create bendras testas', () => {
         //     cy.request("POST", "http://localhost:3000/productsnd", {
         //         title: "naujaPrekė",
